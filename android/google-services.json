@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "119014284624",
+    "project_id": "trackfolio-224f4",
+    "storage_bucket": "trackfolio-224f4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119014284624:android:9fdb2860e167be91f8e055",
+        "android_client_info": {
+          "package_name": "com.saisrujan.trackfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCigD4Z2fDKuEKqaRGmvzTzKBnarEojKsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
