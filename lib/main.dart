@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trackfolio/pages/login_page.dart';
+import 'package:trackfolio/pages/register_page.dart';
+import 'package:trackfolio/pages/splash_screen.dart';
 import 'package:trackfolio/pages/welcome_page.dart';
 
 void main() {
@@ -16,7 +19,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         fontFamily: 'Nunito',
       ),
-      home: WelcomePage(),
+      routes: {
+        'splash': (context) => SplashScreen(),
+        'welcome': (context) => WelcomePage(),
+        'register': (context) => RegisterPage(),
+        'login': (context) => LoginPage(),
+      },
+      initialRoute: 'splash',
     );
   }
 }

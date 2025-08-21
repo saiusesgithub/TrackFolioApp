@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [_titleWidgets(), _quote(), _buttons()],
+          children: [_titleWidgets(), _quote(), _buttons(context)],
         ),
       ),
     );
@@ -56,13 +56,17 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buttons() {
+  Widget _buttons(BuildContext context) {
     return Column(
-      children: [_registerButton(), SizedBox(height: 15), _loginButton()],
+      children: [
+        _registerButton(context),
+        SizedBox(height: 15),
+        _loginButton(context),
+      ],
     );
   }
 
-  Widget _registerButton() {
+  Widget _registerButton(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.8,
       child: OutlinedButton(
@@ -71,7 +75,9 @@ class WelcomePage extends StatelessWidget {
             BorderSide(color: Colors.black, width: 1),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'register');
+        },
         child: Text(
           "Register",
           style: TextStyle(
@@ -84,7 +90,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _loginButton() {
+  Widget _loginButton(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.8,
       child: OutlinedButton(
@@ -93,7 +99,9 @@ class WelcomePage extends StatelessWidget {
             BorderSide(color: Colors.black, width: 1),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'login');
+        },
         child: Text(
           "Login",
           style: TextStyle(
