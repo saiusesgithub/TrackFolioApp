@@ -8,7 +8,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
   double? _deviceHeight, _deviceWidth;
 
   @override

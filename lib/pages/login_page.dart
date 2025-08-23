@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:trackfolio/services/firebase_auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   double? _deviceHeight, _deviceWidth;
   String? email, password;
+  FirebaseAuthService _firebaseAuthService = GetIt.instance
+      .get<FirebaseAuthService>();
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +133,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginUser() {
+  void _loginUser() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      bool _result = await _firebaseAuthService.loginUser(
+        email: email!,
+        password: password!,
+      );
+      if (_result) {
+        Navigator.popAndPushNamed(context, 'home');
+      }
     }
   }
 }
