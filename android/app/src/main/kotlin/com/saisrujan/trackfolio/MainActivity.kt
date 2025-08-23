@@ -1,4 +1,4 @@
-package com.example.trackfolio
+package com.saisrujan.trackfolio
 
 import io.flutter.embedding.android.FlutterActivity
 
