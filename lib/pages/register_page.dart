@@ -29,7 +29,10 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         ),
-        child: Column(children: [_title(), _forms()]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_title(), _forms(), _button()],
+        ),
       ),
     );
   }
@@ -52,37 +55,42 @@ class _RegisterPageState extends State<RegisterPage> {
     return Form(
       key: _formKey,
       child: Column(
-        children: [
-          _NameFormField(),
-          _emailFormField(),
-          _passwordFormField(),
-          _registerButton(),
-        ],
+        children: [_nameFormField(), _emailFormField(), _passwordFormField()],
       ),
     );
   }
 
-  Widget _NameFormField() {
+  Widget _button() {
+    return Column(children: [_registerButton()]);
+  }
+
+  Widget _nameFormField() {
     return Padding(
-      padding: const EdgeInsets.all(50.0),
+      padding: const EdgeInsets.all(20.0),
       child: TextFormField(
         onSaved: (newValue) {
           name = newValue;
         },
         validator: (value) {
           if (value!.isEmpty) {
-            return "please enter a valid name";
+            return "Please enter a valid name.";
           }
           return null;
         },
-        decoration: InputDecoration(hintText: "Name..."),
+        decoration: InputDecoration(
+          hintText: "Name...",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
     );
   }
 
   Widget _emailFormField() {
     return Padding(
-      padding: const EdgeInsets.all(50.0),
+      padding: const EdgeInsets.all(20.0),
       child: TextFormField(
         onSaved: (newValue) {
           email = newValue;
@@ -93,28 +101,40 @@ class _RegisterPageState extends State<RegisterPage> {
               r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
             ),
           );
-          return _result ? null : "Please enter a valid email";
+          return _result ? null : "Please enter a valid email.";
         },
-        decoration: InputDecoration(hintText: "Email..."),
+        decoration: InputDecoration(
+          hintText: "Email...",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
     );
   }
 
   Widget _passwordFormField() {
     return Padding(
-      padding: const EdgeInsets.all(50.0),
+      padding: const EdgeInsets.all(20.0),
       child: TextFormField(
         onSaved: (newValue) {
           password = newValue;
         },
         validator: (value) {
           if (value!.length < 6) {
-            return "password should atleast be 6 characters";
+            return "Password should atleast be 6 characters.";
           }
           return null;
         },
         obscureText: true,
-        decoration: InputDecoration(hintText: "Password..."),
+        decoration: InputDecoration(
+          hintText: "Password...",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
     );
   }
