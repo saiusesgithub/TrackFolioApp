@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trackfolio/services/firebase_firestore_service.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseAuthService();
+
+  FirebaseFirestoreService _firestore = FirebaseFirestoreService();
 
   Future<bool> registerUser({
     required String name,
@@ -12,6 +15,7 @@ class FirebaseAuthService {
     try {
       UserCredential _userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+      _firestore.addingUserName(_userCredential, name, email);
       return true;
     } catch (e) {
       print(e);

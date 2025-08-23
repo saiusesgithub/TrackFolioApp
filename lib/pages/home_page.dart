@@ -9,7 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -30,13 +29,11 @@ class _HomePageState extends State<HomePage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
           ),
-          title: Text(
-            'Trackfolio',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontFamily: 'EduCursive',
-            ),
+          title: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [_appBarTitle(), SizedBox(height: 30), _appBarGreeting()],
           ),
           flexibleSpace: ClipPath(
             clipper: ShapeBorderClipper(
@@ -114,6 +111,42 @@ class _HomePageState extends State<HomePage> {
         color: Colors.black,
       ),
       onPressed: () {},
+    );
+  }
+
+  Widget _appBarTitle() {
+    return Text(
+      'Trackfolio',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 32,
+        fontFamily: 'EduCursive',
+      ),
+    );
+  }
+
+  Widget _appBarGreeting() {
+    DateTime _dt = DateTime.now();
+    String? greetingText;
+    String _userName = "Sai";
+
+    if (_dt.hour < 12 && _dt.hour > 6) {
+      greetingText = "Good Morning";
+    } else if (_dt.hour < 16) {
+      greetingText = "Good Afternoon";
+    } else if (_dt.hour < 20) {
+      greetingText = "Good Evening";
+    } else {
+      greetingText = "Good Night";
+    }
+
+    return Text(
+      '$greetingText $_userName',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 }

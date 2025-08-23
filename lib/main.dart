@@ -7,11 +7,15 @@ import 'package:trackfolio/pages/register_page.dart';
 import 'package:trackfolio/pages/splash_screen.dart';
 import 'package:trackfolio/pages/welcome_page.dart';
 import 'package:trackfolio/services/firebase_auth_service.dart';
+import 'package:trackfolio/services/firebase_firestore_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   GetIt.instance.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
+  GetIt.instance.registerSingleton<FirebaseFirestoreService>(
+    FirebaseFirestoreService(),
+  );
   runApp(const MyApp());
 }
 
