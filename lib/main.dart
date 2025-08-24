@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:trackfolio/pages/add_book_details.dart';
+import 'package:trackfolio/pages/search_book_page.dart';
 import 'package:trackfolio/pages/home_page.dart';
 import 'package:trackfolio/pages/login_page.dart';
 import 'package:trackfolio/pages/register_page.dart';
@@ -38,8 +40,10 @@ class MyApp extends StatelessWidget {
         'login': (context) => LoginPage(),
         'home': (context) => HomePage(),
         'stats': (context) => StatsPage(),
+        'searchbook': (context) => SearchBookPage(),
+        'addbookdetails': (context) => AddBookDetails(),
       },
-      initialRoute: 'splash',
+      initialRoute: 'addbook',
     );
   }
 }
