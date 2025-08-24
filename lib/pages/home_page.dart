@@ -125,7 +125,9 @@ class _HomePageState extends State<HomePage> {
         icon: HugeIcons.strokeRoundedBookUpload,
         color: Colors.black,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, 'searchbook');
+      },
     );
   }
 

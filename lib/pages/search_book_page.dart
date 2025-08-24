@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trackfolio/pages/add_book_details.dart';
+import 'package:trackfolio/services/book_details_service.dart';
 
 class SearchBookPage extends StatefulWidget {
   const SearchBookPage({super.key});
@@ -93,7 +95,14 @@ class _SearchBookPageState extends State<SearchBookPage> {
     return SizedBox(
       width: _deviceWidth! * 0.90,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddBookDetails(isbn: _isbnController.text),
+            ),
+          );
+        },
         child: Text("Search For The Book"),
       ),
     );

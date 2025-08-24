@@ -41,9 +41,9 @@ class MyApp extends StatelessWidget {
         'home': (context) => HomePage(),
         'stats': (context) => StatsPage(),
         'searchbook': (context) => SearchBookPage(),
-        'addbookdetails': (context) => AddBookDetails(),
+        // 'addbookdetails': (context) => AddBookDetails(),
       },
-      initialRoute: 'addbook',
+      initialRoute: 'splash',
     );
   }
 }
