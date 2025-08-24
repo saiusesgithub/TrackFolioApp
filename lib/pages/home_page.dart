@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:trackfolio/services/quote_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,8 +24,9 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
-          toolbarHeight: 175,
+          toolbarHeight: 200,
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
@@ -33,7 +35,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [_appBarTitle(), SizedBox(height: 30), _appBarGreeting()],
+            children: [
+              _appBarTitle(),
+              SizedBox(height: 30),
+              _appBarGreeting(),
+              SizedBox(height: 30),
+              _quote(),
+            ],
           ),
           flexibleSpace: ClipPath(
             clipper: ShapeBorderClipper(
@@ -147,6 +155,37 @@ class _HomePageState extends State<HomePage> {
         fontSize: 20,
         fontWeight: FontWeight.w600,
       ),
+    );
+  }
+
+  Widget _quote() {
+    return FutureBuilder<List<String>>(
+      future: getQuote(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasData) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  snapshot.data![0],
+                  style: TextStyle(fontSize: 15),
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                ),
+              ), // The quote
+              Text(
+                "-${snapshot.data![1]}",
+                style: TextStyle(fontSize: 10),
+              ), // The author
+            ],
+          );
+        } else {
+          return Text('');
+        }
+      },
     );
   }
 }
