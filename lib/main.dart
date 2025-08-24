@@ -5,6 +5,7 @@ import 'package:trackfolio/pages/home_page.dart';
 import 'package:trackfolio/pages/login_page.dart';
 import 'package:trackfolio/pages/register_page.dart';
 import 'package:trackfolio/pages/splash_screen.dart';
+import 'package:trackfolio/pages/stats_page.dart';
 import 'package:trackfolio/pages/welcome_page.dart';
 import 'package:trackfolio/services/firebase_auth_service.dart';
 import 'package:trackfolio/services/firebase_firestore_service.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         'register': (context) => RegisterPage(),
         'login': (context) => LoginPage(),
         'home': (context) => HomePage(),
+        'stats': (context) => StatsPage(),
       },
       initialRoute: 'splash',
     );

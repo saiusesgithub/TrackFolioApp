@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _bottomNavBar() {
+    int currentPage = 0;
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),
@@ -90,6 +91,12 @@ class _HomePageState extends State<HomePage> {
           child: BottomNavigationBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
+            currentIndex: currentPage,
+            onTap: (index) {
+              setState(() {
+                currentPage = index;
+              });
+            },
             items: [
               BottomNavigationBarItem(
                 icon: HugeIcon(

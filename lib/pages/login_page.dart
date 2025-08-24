@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
               r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
             ),
           );
-          return _result ? null : "Please enter a valid email.";
+          return _result ? null : "Please enter a registered email.";
         },
         decoration: InputDecoration(
           hintText: "Email...",
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         validator: (value) {
           if (value!.length < 6) {
-            return "Password should atleast be 6 characters.";
+            return "Please enter the correct password.";
           }
           return null;
         },
