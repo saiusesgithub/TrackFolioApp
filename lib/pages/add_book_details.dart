@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:trackfolio/services/book_details_service.dart';
 
 class AddBookDetails extends StatefulWidget {
@@ -11,6 +12,7 @@ class AddBookDetails extends StatefulWidget {
 
 class _AddBookDetailsState extends State<AddBookDetails> {
   Future<Map>? _bookData;
+  double? _deviceWidth;
   @override
   void initState() {
     super.initState();
@@ -22,9 +24,11 @@ class _AddBookDetailsState extends State<AddBookDetails> {
         return DropdownMenuItem<String>(child: Text(value), value: value);
       }).toList();
   String _selectedStatus = 'To-Read';
+  double? _rating;
 
   @override
   Widget build(BuildContext context) {
+    _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         child: FutureBuilder(
@@ -52,8 +56,9 @@ class _AddBookDetailsState extends State<AddBookDetails> {
               String author = _data?['author'] ?? 'Unknown Author';
 
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
+                padding: const EdgeInsets.only(top: 50),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -69,11 +74,12 @@ class _AddBookDetailsState extends State<AddBookDetails> {
                       ),
                     ),
                     _bookTitle(title),
-                    SizedBox(height: 50),
                     _bookAuthor(author),
                     _bookPublishedDate(publishedDate),
                     _bookPageCount(pageCount),
                     _statusDropDown(),
+                    _ratingBar(),
+                    _addBookButton(),
                   ],
                 ),
               );
@@ -133,19 +139,65 @@ class _AddBookDetailsState extends State<AddBookDetails> {
   }
 
   Widget _statusDropDown() {
-    return Container(
-      child: DropdownButton<String>(
-        underline: Container(),
-        items: _items,
-        value: _selectedStatus,
-        dropdownColor: Color.fromRGBO(53, 53, 53, 1.0),
-        style: TextStyle(color: Colors.white),
-        onChanged: (value) {
-          setState(() {
-            _selectedStatus = value!;
-          });
-        },
-      ),
+    return Column(
+      children: [
+        Text(
+          'Status',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        DropdownButton<String>(
+          menuWidth: 150,
+          borderRadius: BorderRadius.circular(20),
+          underline: Container(),
+          items: _items,
+          value: _selectedStatus,
+          dropdownColor: Color.fromRGBO(255, 255, 255, 1),
+          style: TextStyle(color: Colors.black, fontSize: 15),
+          onChanged: (value) {
+            setState(() {
+              _selectedStatus = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _ratingBar() {
+    return Column(
+      children: [
+        Text(
+          'Rating',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        RatingBar.builder(
+          initialRating: 0,
+          minRating: 0,
+          direction: Axis.horizontal,
+          allowHalfRating: false,
+          itemCount: 5,
+          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+          onRatingUpdate: (rating) {
+            _rating = rating;
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _addBookButton() {
+    return SizedBox(
+      width: _deviceWidth! * 0.80,
+      child: OutlinedButton(onPressed: () {}, child: Text('Add Book')),
     );
   }
 }
