@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get_it/get_it.dart';
 import 'package:trackfolio/services/book_details_service.dart';
+import 'package:trackfolio/services/firebase_firestore_service.dart';
 
 class AddBookDetails extends StatefulWidget {
   AddBookDetails({super.key, required this.isbn});
@@ -18,6 +20,9 @@ class _AddBookDetailsState extends State<AddBookDetails> {
     super.initState();
     _bookData = getBookDataByIsbn(widget.isbn);
   }
+
+  FirebaseFirestoreService _firestore = GetIt.instance
+      .get<FirebaseFirestoreService>();
 
   final List<DropdownMenuItem<String>> _items =
       ['To-Read', 'Reading', 'Read', 'Dropped'].map((String value) {
@@ -79,7 +84,13 @@ class _AddBookDetailsState extends State<AddBookDetails> {
                     _bookPageCount(pageCount),
                     _statusDropDown(),
                     _ratingBar(),
-                    _addBookButton(),
+                    _addBookButton(
+                      title,
+                      author,
+                      publishedDate,
+                      int.parse(pageCount),
+                      imageLink,
+                    ),
                   ],
                 ),
               );
@@ -187,17 +198,39 @@ class _AddBookDetailsState extends State<AddBookDetails> {
           itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
           itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
           onRatingUpdate: (rating) {
-            _rating = rating;
+            setState(() {
+              _rating = rating;
+            });
           },
         ),
       ],
     );
   }
 
-  Widget _addBookButton() {
+  Widget _addBookButton(
+    String title,
+    String author,
+    String publishedDate,
+    int pageCount,
+    String imageURL,
+  ) {
     return SizedBox(
       width: _deviceWidth! * 0.80,
-      child: OutlinedButton(onPressed: () {}, child: Text('Add Book')),
+      child: OutlinedButton(
+        onPressed: () {
+          _firestore.addingBookData(
+            author: author,
+            imageURL: imageURL,
+            ownerId: '',
+            pageCount: pageCount,
+            publishedDate: publishedDate,
+            rating: _rating!,
+            status: _selectedStatus,
+            title: title,
+          );
+        },
+        child: Text('Add Book'),
+      ),
     );
   }
 }

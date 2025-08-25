@@ -22,17 +22,32 @@ class FirebaseFirestoreService {
       return false;
     }
   }
+
+  Future<bool> addingBookData({
+    required String author,
+    required String imageURL,
+    required String ownerId,
+    required int pageCount,
+    required String publishedDate,
+    required double rating,
+    required String status,
+    required String title,
+  }) async {
+    try {
+      await _firestore.collection('books').doc().set({
+        "author": author,
+        "imageURL": imageURL,
+        "ownerId": ownerId,
+        "publishedDate": publishedDate,
+        "pageCount": pageCount,
+        "rating": rating,
+        "status": status,
+        "title": title,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }
-
-//logging user
-
-//     if (_userCredential.user != null) {
-//       currentUser = await getUserData(uid: _userCredential.user!.uid);
-//       return true;
-
-// Future<Map> getUserData({required String uid}) async {
-//   DocumentSnapshot _doc = await _db.collection(USER_COLLECTION).doc(uid).get();
-//   return _doc.data() as Map;
-// }
-
-// String _userId = _auth.currentUser!.uid;
