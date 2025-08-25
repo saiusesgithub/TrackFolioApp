@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get_it/get_it.dart';
@@ -21,8 +22,9 @@ class _AddBookDetailsState extends State<AddBookDetails> {
     _bookData = getBookDataByIsbn(widget.isbn);
   }
 
-  FirebaseFirestoreService _firestore = GetIt.instance
+  final FirebaseFirestoreService _firestore = GetIt.instance
       .get<FirebaseFirestoreService>();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   final List<DropdownMenuItem<String>> _items =
       ['To-Read', 'Reading', 'Read', 'Dropped'].map((String value) {
@@ -218,17 +220,23 @@ class _AddBookDetailsState extends State<AddBookDetails> {
       width: _deviceWidth! * 0.80,
       child: OutlinedButton(
         onPressed: () {
+          String uid = _firebaseAuth.currentUser!.uid;
           _firestore.addingBookData(
             author: author,
             imageURL: imageURL,
-            ownerId: '',
+            ownerId: uid,
             pageCount: pageCount,
             publishedDate: publishedDate,
             rating: _rating!,
             status: _selectedStatus,
             title: title,
           );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Book added successfully')));
+          Navigator.of(context).pop();
         },
+
         child: Text('Add Book'),
       ),
     );
