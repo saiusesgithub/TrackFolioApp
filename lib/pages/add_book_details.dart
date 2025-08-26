@@ -209,6 +209,43 @@ class _AddBookDetailsState extends State<AddBookDetails> {
     );
   }
 
+  Widget description(String description) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        description,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget averageRating(double avgRating) {
+    return Text(
+      'Average Rating - $avgRating',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget genres(List categories) {
+    return Text(
+      'Genres - ${categories.join(', ')}',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
   Widget _addBookButton(
     String title,
     String author,
