@@ -5,15 +5,15 @@ import 'package:get_it/get_it.dart';
 import 'package:trackfolio/services/book_details_service.dart';
 import 'package:trackfolio/services/firebase_firestore_service.dart';
 
-class AddBookDetails extends StatefulWidget {
-  AddBookDetails({super.key, required this.isbn});
+class AddBookDetailsByIsbn extends StatefulWidget {
+  AddBookDetailsByIsbn({super.key, required this.isbn});
   final String isbn;
 
   @override
-  State<AddBookDetails> createState() => _AddBookDetailsState();
+  State<AddBookDetailsByIsbn> createState() => _AddBookDetailsByIsbnState();
 }
 
-class _AddBookDetailsState extends State<AddBookDetails> {
+class _AddBookDetailsByIsbnState extends State<AddBookDetailsByIsbn> {
   Future<Map>? _bookData;
   double? _deviceWidth;
   @override
@@ -209,43 +209,6 @@ class _AddBookDetailsState extends State<AddBookDetails> {
     );
   }
 
-  Widget description(String description) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        description,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  Widget averageRating(double avgRating) {
-    return Text(
-      'Average Rating - $avgRating',
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 15,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-
-  Widget genres(List categories) {
-    return Text(
-      'Genres - ${categories.join(', ')}',
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 15,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-
   Widget _addBookButton(
     String title,
     String author,
@@ -258,7 +221,7 @@ class _AddBookDetailsState extends State<AddBookDetails> {
       child: OutlinedButton(
         onPressed: () {
           String uid = _firebaseAuth.currentUser!.uid;
-          _firestore.addingBookData(
+          _firestore.addingBookDataByIsbn(
             author: author,
             imageURL: imageURL,
             ownerId: uid,

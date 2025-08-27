@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trackfolio/pages/add_book_details.dart';
-import 'package:trackfolio/services/book_details_service.dart';
+import 'package:trackfolio/pages/add_book_by_isbn.dart';
+import 'package:trackfolio/pages/add_book_by_title.dart';
 
 class SearchBookPage extends StatefulWidget {
   const SearchBookPage({super.key});
@@ -10,8 +10,8 @@ class SearchBookPage extends StatefulWidget {
 }
 
 class _SearchBookPageState extends State<SearchBookPage> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _isbnController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _isbnController = TextEditingController();
   String? bookTitle;
   String? bookIsbn;
   double? _deviceWidth;
@@ -99,7 +99,9 @@ class _SearchBookPageState extends State<SearchBookPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddBookDetails(isbn: _isbnController.text),
+              builder: (context) => _isbnController.text.isNotEmpty
+                  ? AddBookDetailsByIsbn(isbn: _isbnController.text)
+                  : AddBookDetailsByTitle(title: _titleController.text),
             ),
           );
         },
