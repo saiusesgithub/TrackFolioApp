@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:trackfolio/models/book_model.dart';
 
 class FirebaseFirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -26,7 +27,7 @@ class FirebaseFirestoreService {
   Future<bool> addingBookDataByIsbn({
     required String author,
     required String imageURL,
-    required String ownerId,
+    required String userId,
     required int pageCount,
     required String publishedDate,
     required double rating,
@@ -37,7 +38,7 @@ class FirebaseFirestoreService {
       await _firestore.collection('books').doc().set({
         "author": author,
         "imageURL": imageURL,
-        "ownerId": ownerId,
+        "userId": userId,
         "publishedDate": publishedDate,
         "pageCount": pageCount,
         "rating": rating,
@@ -54,7 +55,7 @@ class FirebaseFirestoreService {
   Future<bool> addingBookDataByName({
     required String author,
     required String imageURL,
-    required String ownerId,
+    required String userId,
     required int pageCount,
     required String publishedDate,
     required double rating,
@@ -68,7 +69,7 @@ class FirebaseFirestoreService {
       await _firestore.collection('books').doc().set({
         "author": author,
         "imageURL": imageURL,
-        "ownerId": ownerId,
+        "userId": userId,
         "publishedDate": publishedDate,
         "pageCount": pageCount,
         "rating": rating,
@@ -83,5 +84,24 @@ class FirebaseFirestoreService {
       print(e);
       return false;
     }
+  }
+
+  Stream<List<Book>> getBooksByStatus(String userId, String status) {
+    final q = _firestore
+        .collection('books')
+        .where('userId', isEqualTo: userId)
+        .where('status', isEqualTo: status);
+
+    return q.snapshots().map((snap) {
+      final out = <Book>[];
+      for (final doc in snap.docs) {
+        try {
+          out.add(Book.RawToStructured(doc));
+        } catch (e) {
+          print('Bad book doc ${doc.id}: $e');
+        }
+      }
+      return out;
+    });
   }
 }

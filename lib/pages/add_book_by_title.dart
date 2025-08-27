@@ -273,7 +273,7 @@ class _AddBookDetailsByTitleState extends State<AddBookDetailsByTitle> {
           _firestore.addingBookDataByName(
             author: author,
             imageURL: imageURL,
-            ownerId: uid,
+            userId: uid,
             pageCount: pageCount,
             publishedDate: publishedDate,
             rating: _rating!,

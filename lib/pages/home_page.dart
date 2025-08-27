@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:trackfolio/pages/to_read_books_list.dart';
 import 'package:trackfolio/services/quote_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currentPage = 0;
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -41,6 +43,15 @@ class _HomePageState extends State<HomePage> {
               _appBarGreeting(),
               SizedBox(height: 30),
               _quote(),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => ToReadBooksList()),
+                  );
+                },
+                child: Text('to read books'),
+              ),
             ],
           ),
           flexibleSpace: ClipPath(
@@ -71,7 +82,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _bottomNavBar() {
-    int currentPage = 0;
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),

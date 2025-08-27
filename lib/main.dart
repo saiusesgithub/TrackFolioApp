@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:trackfolio/pages/add_book_by_isbn.dart';
 import 'package:trackfolio/pages/search_book_page.dart';
 import 'package:trackfolio/pages/home_page.dart';
 import 'package:trackfolio/pages/login_page.dart';
 import 'package:trackfolio/pages/register_page.dart';
 import 'package:trackfolio/pages/splash_screen.dart';
 import 'package:trackfolio/pages/stats_page.dart';
+import 'package:trackfolio/pages/to_read_books_list.dart';
 import 'package:trackfolio/pages/welcome_page.dart';
 import 'package:trackfolio/services/firebase_auth_service.dart';
 import 'package:trackfolio/services/firebase_firestore_service.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         'home': (context) => HomePage(),
         'stats': (context) => StatsPage(),
         'searchbook': (context) => SearchBookPage(),
-        // 'addbookdetails': (context) => AddBookDetails(),
+        'toreadbookslist': (context) => ToReadBooksList(),
       },
       initialRoute: 'splash',
     );

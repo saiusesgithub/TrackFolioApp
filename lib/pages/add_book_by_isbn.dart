@@ -31,7 +31,7 @@ class _AddBookDetailsByIsbnState extends State<AddBookDetailsByIsbn> {
         return DropdownMenuItem<String>(child: Text(value), value: value);
       }).toList();
   String _selectedStatus = 'To-Read';
-  double? _rating;
+  double? _rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +224,7 @@ class _AddBookDetailsByIsbnState extends State<AddBookDetailsByIsbn> {
           _firestore.addingBookDataByIsbn(
             author: author,
             imageURL: imageURL,
-            ownerId: uid,
+            userId: uid,
             pageCount: pageCount,
             publishedDate: publishedDate,
             rating: _rating!,
